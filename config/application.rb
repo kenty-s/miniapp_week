@@ -12,11 +12,11 @@ module Myapp
     config.load_defaults 8.0
 
     # Solid機能を無効化（Render deployment用）
-    config.solid_cache.store = :null_store
-    config.solid_queue.silence_polling = true
+    # config.solid_cache.store = :null_store
+    # config.solid_queue.silence_polling = true
 
     # Solid Queueを完全に無効化
-    config.solid_queue.connects_to = {}
+    # config.solid_queue.connects_to = {}
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
