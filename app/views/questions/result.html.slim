@@ -1,0 +1,10 @@
+h2 芋煮論争を終わらせる!!!
+- if @region
+  p あなたが選んだのは
+    strong= @region.name
+    | 風芋煮！
+- else
+  p 該当する芋煮はありませんでした。
+/ X投稿用は最後に表示
+p.text-center 芋煮ケーション 🍲 をXに投稿して共有しよう！
+= link_to "ランキングを見る", ranking_votes_path, class: "btn btn-primary"

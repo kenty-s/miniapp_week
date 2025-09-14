@@ -1,0 +1,9 @@
+h2 味付けは？
+= form_with url: step3_questions_path, method: :get do
+  = radio_button_tag :seasoning, "醤油"
+  | 醤油
+  br
+  = radio_button_tag :seasoning, "味噌"
+  | 味噌
+  br
+  = submit_tag "次へ"

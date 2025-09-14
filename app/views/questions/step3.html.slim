@@ -1,0 +1,12 @@
+h2 特徴を選ぼう！
+= form_with url: result_questions_path, method: :get do
+  = radio_button_tag :feature, "あっさり"
+  | あっさり
+  br
+  = radio_button_tag :feature, "濃厚"
+  | 濃厚
+  br
+  = radio_button_tag :feature, "甘め"
+  | 甘め
+  br
+  = submit_tag "結果を見る"

@@ -1,0 +1,12 @@
+h2 肉はどれにする？
+= form_with url: step2_questions_path, method: :get do
+  = radio_button_tag :meat, "牛肉"
+  | 牛肉
+  br
+  = radio_button_tag :meat, "豚肉"
+  | 豚肉
+  br
+  = radio_button_tag :meat, "鶏肉"
+  | 鶏肉
+  br
+  = submit_tag "次へ"

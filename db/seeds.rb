@@ -1,9 +1,8 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+Region.create!([
+  { name: "山形", meat: "牛肉", seasoning: "醤油", feature: "親しみやすい醤油ベース" },
+  { name: "宮城", meat: "豚肉", seasoning: "味噌", feature: "濃厚な味噌仕立てが特徴" },
+  { name: "福島", meat: "豚肉", seasoning: "味噌", feature: "バリエーション豊かな味噌仕立て" },
+  { name: "岩手", meat: "鶏肉", seasoning: "醤油", feature: "あっさりした醤油味" },
+  { name: "秋田", meat: "鶏肉", seasoning: "醤油", feature: "鍋文化との相性◎" },
+  { name: "青森", meat: "豚肉", seasoning: "味噌", feature: "甘めの味噌仕立て" }
+])
