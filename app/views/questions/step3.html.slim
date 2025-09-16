@@ -1,12 +1,20 @@
-h2 特徴を選ぼう！
-= form_with url: result_questions_path, method: :get do
-  = radio_button_tag :feature, "あっさり"
-  | あっさり
+h1 Step3: 最後の仕上げ！
+
+p あなたの選択:
+ul
+  li 肉: #{session[:meat]}
+  li 味付け: #{session[:seasoning]}
+
+h2 どんな特徴が好み？
+= form_with url: questions_result_path, method: :get, local: true do
+  .form-check
+    = radio_button_tag :feature, "あっさり", false, class: "form-check-input"
+    = label_tag :feature_あっさり, "あっさり（優しい味わい）", class: "form-check-label"
+  .form-check
+    = radio_button_tag :feature, "濃厚", false, class: "form-check-input"
+    = label_tag :feature_濃厚, "濃厚（しっかりした味）", class: "form-check-label"
+  .form-check
+    = radio_button_tag :feature, "甘め", false, class: "form-check-input"
+    = label_tag :feature_甘め, "甘め（まろやかな味）", class: "form-check-label"
   br
-  = radio_button_tag :feature, "濃厚"
-  | 濃厚
-  br
-  = radio_button_tag :feature, "甘め"
-  | 甘め
-  br
-  = submit_tag "結果を見る"
+  = submit_tag "結果を見る！", class: "btn btn-success"

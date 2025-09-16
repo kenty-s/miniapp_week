@@ -1,9 +1,10 @@
 h2 投票ランキング
-div.tohoku-map style="position: relative; width: 600px;"
-  img src="/images/tohoku_map.png" alt="東北地図" style="width: 100%;"
+div.tohoku-map data-controller="vote_map" style="position: relative; width: 600px;"
+  img src=asset_path("tohoku_map.png") alt="東北地図" style="width: 100%;"
   - @ranking.each do |r|
-    div.label style="position: absolute; top: #{r[:top]}px; left: #{r[:left]}px; font-weight: bold; color: red;"
+    div.label.region data-rate=r[:rate] style="position: absolute; top: #{r[:top]}px; left: #{r[:left]}px; font-weight: bold; color: red;"
       = "#{r[:region].name}: #{r[:rate]}%"
+
 table.table
   thead
     tr

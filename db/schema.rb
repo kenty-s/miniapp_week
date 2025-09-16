@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_13_125427) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_16_140433) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -19,4 +19,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_13_125427) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "regions", force: :cascade do |t|
+    t.string "name"
+    t.string "meat"
+    t.string "seasoning"
+    t.text "feature"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.bigint "region_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["region_id"], name: "index_votes_on_region_id"
+  end
+
+  add_foreign_key "votes", "regions"
 end

@@ -1,10 +1,47 @@
-h2 芋煮論争を終わらせる!!!
-- if @region
-  p あなたが選んだのは
-    strong= @region.name
-    | 風芋煮！
-- else
-  p 該当する芋煮はありませんでした。
-/ X投稿用は最後に表示
-p.text-center 芋煮ケーション 🍲 をXに投稿して共有しよう！
-= link_to "ランキングを見る", ranking_votes_path, class: "btn btn-primary"
+h1.text-center 結果発表
+
+.result-container.text-center
+  - if @region
+    h2.text-success あなたが選んだのは...
+    .region-result
+      h3.display-4
+        strong.text-primary= @region.name
+        | 風芋煮！
+      p.lead= @region.feature
+      p #{@region.meat} + #{@region.seasoning}
+
+    .closing-message.mt-5
+      h2 でも、ちょっと待って...
+
+      .coby-section.text-center
+        / コビーのイラスト表示
+        = image_tag "coby_crying.png", alt: "泣いているコビー", class: "coby-image"
+
+      blockquote.blockquote.text-center
+        p.mb-0.coby-speech 「芋煮がも゛ったいだい!!!!」
+        p.sub-speech.text-muted （東北１件１件に…‼芋煮の良さがあるのに!!!）
+      h3.text-danger.emphasis-text 論争してる間に冷めちゃう!!!
+      p.lead みんなで仲良く温かい芋煮を食べましょう
+
+  - else
+    h2.text-warning 該当する芋煮が見つかりませんでした...
+    p でも大丈夫！どの芋煮も美味しいです！
+
+.social-share.mt-5
+  h3 芋煮ケーションをシェアしよう！
+  p.text-muted 芋煮で心も温まる〜
+
+  - if @region
+    - tweet_text = "私は#{@region.name}風芋煮派だべ！#{@region.feature}が最高だっぺ〜 芋煮がも゛ったいだい〜 #芋煮ケーション #芋煮論争 #東北愛"
+    - tweet_url = "https://twitter.com/intent/tweet?text=#{CGI.escape(tweet_text)}"
+    = link_to tweet_url, target: "_blank", class: "btn btn-info btn-lg" do
+      | 🐦 Xに投稿する
+  - else
+    - tweet_text = "芋煮ケーションで芋煮の良さを知ったべ！論争してないでみんなでアツアツの芋煮食うべ〜 #芋煮ケーション #東北愛"
+    - tweet_url = "https://twitter.com/intent/tweet?text=#{CGI.escape(tweet_text)}"
+    = link_to tweet_url, target: "_blank", class: "btn btn-info btn-lg" do
+      | 🐦 Xに投稿する
+
+.navigation.mt-4
+  = link_to "ランキングを見る", votes_ranking_path, class: "btn btn-primary btn-lg me-3"
+  = link_to "もう一度やる", root_path, class: "btn btn-outline-secondary"

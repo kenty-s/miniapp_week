@@ -1,9 +1,13 @@
-h2 味付けは？
-= form_with url: step3_questions_path, method: :get do
-  = radio_button_tag :seasoning, "醤油"
-  | 醤油
+h1 Step2: 味付けは？
+
+p あなたが選んだ肉: #{session[:meat]}
+
+= form_with url: questions_step3_path, method: :get, local: true do
+  .form-check
+    = radio_button_tag :seasoning, "醤油", false, class: "form-check-input"
+    = label_tag :seasoning_醤油, "醤油（あっさり系）", class: "form-check-label"
+  .form-check
+    = radio_button_tag :seasoning, "味噌", false, class: "form-check-input"
+    = label_tag :seasoning_味噌, "味噌（濃厚系）", class: "form-check-label"
   br
-  = radio_button_tag :seasoning, "味噌"
-  | 味噌
-  br
-  = submit_tag "次へ"
+  = submit_tag "次へ", class: "btn btn-primary"

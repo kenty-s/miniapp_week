@@ -1,12 +1,31 @@
-h2 肉はどれにする？
-= form_with url: step2_questions_path, method: :get do
-  = radio_button_tag :meat, "牛肉"
-  | 牛肉
+h1 芋煮の特徴を知ろう！
+
+h2 各県の芋煮スタイル
+table.table.table-bordered
+  thead
+    tr
+      th 県名
+      th 肉
+      th 味付け
+      th 特徴
+  tbody
+    - Region.all.each do |region|
+      tr
+        td = region.name
+        td = region.meat
+        td = region.seasoning
+        td = region.feature
+
+h2 Step1: 肉はどれにする？
+= form_with url: questions_step2_path, method: :get, local: true do
+  .form-check
+    = radio_button_tag :meat, "牛肉", false, class: "form-check-input"
+    = label_tag :meat_牛肉, "牛肉", class: "form-check-label"
+  .form-check
+    = radio_button_tag :meat, "豚肉", false, class: "form-check-input"
+    = label_tag :meat_豚肉, "豚肉", class: "form-check-label"
+  .form-check
+    = radio_button_tag :meat, "鶏肉", false, class: "form-check-input"
+    = label_tag :meat_鶏肉, "鶏肉", class: "form-check-label"
   br
-  = radio_button_tag :meat, "豚肉"
-  | 豚肉
-  br
-  = radio_button_tag :meat, "鶏肉"
-  | 鶏肉
-  br
-  = submit_tag "次へ"
+  = submit_tag "次へ", class: "btn btn-primary"
