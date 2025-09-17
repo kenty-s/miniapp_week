@@ -13,7 +13,6 @@ Rails.application.routes.draw do
 
   # 投票機能
   resources :votes, only: [:create]
-  get 'votes/ranking', to: 'votes#ranking'
 
   # 旧postリソース（必要に応じて削除可能）
   resources :posts

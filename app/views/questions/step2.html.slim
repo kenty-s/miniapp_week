@@ -1,13 +1,22 @@
-h1 Step2: 味付けは？
+h1 Step2: 肉はどれにする？
 
-p あなたが選んだ肉: #{session[:meat]}
+p あなたが選んだ味付け: #{session[:seasoning]}
 
-= form_with url: questions_step3_path, method: :get, local: true do
-  .form-check
-    = radio_button_tag :seasoning, "醤油", false, class: "form-check-input"
-    = label_tag :seasoning_醤油, "醤油（あっさり系）", class: "form-check-label"
-  .form-check
-    = radio_button_tag :seasoning, "味噌", false, class: "form-check-input"
-    = label_tag :seasoning_味噌, "味噌（濃厚系）", class: "form-check-label"
+= form_with url: questions_step3_path, method: :get, local: true, data: { controller: "form", form_target: "form" } do
+  - @available_meats.each do |meat|
+    .form-check data-action="click->form#selectOption" data-form-target="option"
+      = radio_button_tag :meat, meat, false, class: "form-check-input", data: { action: "change->form#radioSelected" }
+      - label_text = case meat
+      - when "牛"
+        - "牛肉"
+      - when "豚"
+        - "豚肉"
+      - when "鶏"
+        - "鶏肉"
+      - else
+        - meat
+      = label_tag "meat_#{meat.gsub('・', '_')}", label_text, class: "form-check-label"
   br
-  = submit_tag "次へ", class: "btn btn-primary"
+  .button-group
+    = link_to "戻る", questions_step1_path, class: "btn btn-outline-secondary me-3"
+    = submit_tag "次へ", class: "btn btn-primary"

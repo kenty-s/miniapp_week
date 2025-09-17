@@ -2,19 +2,16 @@ h1 Step3: 最後の仕上げ！
 
 p あなたの選択:
 ul
-  li 肉: #{session[:meat]}
   li 味付け: #{session[:seasoning]}
+  li 肉: #{session[:meat]}
 
 h2 どんな特徴が好み？
-= form_with url: questions_result_path, method: :get, local: true do
-  .form-check
-    = radio_button_tag :feature, "あっさり", false, class: "form-check-input"
-    = label_tag :feature_あっさり, "あっさり（優しい味わい）", class: "form-check-label"
-  .form-check
-    = radio_button_tag :feature, "濃厚", false, class: "form-check-input"
-    = label_tag :feature_濃厚, "濃厚（しっかりした味）", class: "form-check-label"
-  .form-check
-    = radio_button_tag :feature, "甘め", false, class: "form-check-input"
-    = label_tag :feature_甘め, "甘め（まろやかな味）", class: "form-check-label"
+= form_with url: questions_result_path, method: :get, local: true, data: { controller: "form", form_target: "form" } do
+  - @available_features.each_with_index do |feature, index|
+    .form-check data-action="click->form#selectOption" data-form-target="option"
+      = radio_button_tag :feature, feature, false, class: "form-check-input", data: { action: "change->form#radioSelected" }
+      = label_tag "feature_#{index}", feature, class: "form-check-label"
   br
-  = submit_tag "結果を見る！", class: "btn btn-success"
+  .button-group
+    = link_to "戻る", questions_step2_path, class: "btn btn-outline-secondary me-3"
+    = submit_tag "結果を見る！", class: "btn btn-success"

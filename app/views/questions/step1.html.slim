@@ -1,31 +1,12 @@
-h1 芋煮の特徴を知ろう！
+h1 芋煮診断
 
-h2 各県の芋煮スタイル
-table.table.table-bordered
-  thead
-    tr
-      th 県名
-      th 肉
-      th 味付け
-      th 特徴
-  tbody
-    - Region.all.each do |region|
-      tr
-        td = region.name
-        td = region.meat
-        td = region.seasoning
-        td = region.feature
-
-h2 Step1: 肉はどれにする？
-= form_with url: questions_step2_path, method: :get, local: true do
-  .form-check
-    = radio_button_tag :meat, "牛肉", false, class: "form-check-input"
-    = label_tag :meat_牛肉, "牛肉", class: "form-check-label"
-  .form-check
-    = radio_button_tag :meat, "豚肉", false, class: "form-check-input"
-    = label_tag :meat_豚肉, "豚肉", class: "form-check-label"
-  .form-check
-    = radio_button_tag :meat, "鶏肉", false, class: "form-check-input"
-    = label_tag :meat_鶏肉, "鶏肉", class: "form-check-label"
+h2 Step1: 味付けはどれにする？
+= form_with url: questions_step2_path, method: :get, local: true, data: { controller: "form", form_target: "form" } do
+  .form-check data-action="click->form#selectOption" data-form-target="option"
+    = radio_button_tag :seasoning, "醤油", false, class: "form-check-input", data: { action: "change->form#radioSelected" }
+    = label_tag :seasoning_醤油, "醤油（あっさり系）", class: "form-check-label"
+  .form-check data-action="click->form#selectOption" data-form-target="option"
+    = radio_button_tag :seasoning, "味噌", false, class: "form-check-input", data: { action: "change->form#radioSelected" }
+    = label_tag :seasoning_味噌, "味噌（濃厚系）", class: "form-check-label"
   br
   = submit_tag "次へ", class: "btn btn-primary"

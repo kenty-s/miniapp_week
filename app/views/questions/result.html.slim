@@ -7,41 +7,26 @@ h1.text-center 結果発表
       h3.display-4
         strong.text-primary= @region.name
         | 風芋煮！
-      p.lead= @region.feature
-      p #{@region.meat} + #{@region.seasoning}
 
-    .closing-message.mt-5
-      h2 でも、ちょっと待って...
+    .result-table.mt-4
+      table.table.table-bordered.mx-auto style="max-width: 400px;"
+        tr
+          td.fw-bold style="text-align: left;" 味付け
+          td style="text-align: left;"= @region.seasoning
+        tr
+          td.fw-bold style="text-align: left;" 肉
+          td style="text-align: left;"= @region.meat
+        tr
+          td.fw-bold style="text-align: left;" 特徴
+          td style="text-align: left;"= @region.feature
 
-      .coby-section.text-center
-        / コビーのイラスト表示
-        = image_tag "coby_crying.png", alt: "泣いているコビー", class: "coby-image"
-
-      blockquote.blockquote.text-center
-        p.mb-0.coby-speech 「芋煮がも゛ったいだい!!!!」
-        p.sub-speech.text-muted （東北１件１件に…‼芋煮の良さがあるのに!!!）
-      h3.text-danger.emphasis-text 論争してる間に冷めちゃう!!!
-      p.lead みんなで仲良く温かい芋煮を食べましょう
-
-  - else
-    h2.text-warning 該当する芋煮が見つかりませんでした...
-    p でも大丈夫！どの芋煮も美味しいです！
 
 .social-share.mt-5
-  h3 芋煮ケーションをシェアしよう！
-  p.text-muted 芋煮で心も温まる〜
-
-  - if @region
-    - tweet_text = "私は#{@region.name}風芋煮派だべ！#{@region.feature}が最高だっぺ〜 芋煮がも゛ったいだい〜 #芋煮ケーション #芋煮論争 #東北愛"
-    - tweet_url = "https://twitter.com/intent/tweet?text=#{CGI.escape(tweet_text)}"
-    = link_to tweet_url, target: "_blank", class: "btn btn-info btn-lg" do
-      | 🐦 Xに投稿する
-  - else
-    - tweet_text = "芋煮ケーションで芋煮の良さを知ったべ！論争してないでみんなでアツアツの芋煮食うべ〜 #芋煮ケーション #東北愛"
-    - tweet_url = "https://twitter.com/intent/tweet?text=#{CGI.escape(tweet_text)}"
-    = link_to tweet_url, target: "_blank", class: "btn btn-info btn-lg" do
-      | 🐦 Xに投稿する
+  - tweet_text = "私は#{@region.name}風芋煮派だべ！#{@region.feature}が最高だっぺ〜 芋煮がも゛ったいだい〜 #芋煮ケーション #芋煮論争 #東北愛"
+  - tweet_url = "https://twitter.com/intent/tweet?text=#{CGI.escape(tweet_text)}"
+  = link_to tweet_url, target: "_blank", class: "btn btn-lg", style: "background-color: black; color: white; border: none;" do
+    | Xで芋煮ケーションする
 
 .navigation.mt-4
-  = link_to "ランキングを見る", votes_ranking_path, class: "btn btn-primary btn-lg me-3"
+  = link_to "戻る", questions_step3_path, class: "btn btn-outline-secondary me-3"
   = link_to "もう一度やる", root_path, class: "btn btn-outline-secondary"
