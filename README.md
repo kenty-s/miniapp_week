@@ -27,4 +27,4 @@ docker compose exec web rails db:create db:migrate db:seed
 app/assets/images/
   imoni_background.png
   imoni_shanks.png
-  slash_effect.png
+  slash_effect.png# Updated at Thu Sep 18 05:06:44 JST 2025
