@@ -18,16 +18,17 @@ class QuestionsController < ApplicationController
                         .uniq
     end
 
-    # 鶏・豚の組み合わせを個別の選択肢に分解
-    @available_meats = []
+    # 鶏・豚の組み合わせを個別の選択肢に分解（Setを使用して重複を完全排除）
+    meat_set = Set.new
     raw_meats.each do |meat|
       if meat == "鶏・豚"
-        @available_meats << "鶏" unless @available_meats.include?("鶏")
-        @available_meats << "豚" unless @available_meats.include?("豚")
+        meat_set.add("鶏")
+        meat_set.add("豚")
       else
-        @available_meats << meat unless @available_meats.include?(meat)
+        meat_set.add(meat)
       end
     end
+    @available_meats = meat_set.to_a
   end
 
   def step3
@@ -105,8 +106,8 @@ class QuestionsController < ApplicationController
   end
 
   def respect
-    # 芋煮リスペクトページで使用するデータを準備
-    @regions = Region.all.group_by(&:name)
+    # 芋煮リスペクトページで使用するデータを準備（各県1つのレコードのみ）
+    @regions = Region.all.group_by(&:name).transform_values { |regions| [regions.first] }
   end
 
 end
