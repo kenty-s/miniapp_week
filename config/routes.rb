@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "debug/index"
   # 芋煮チェーン機能
   resources :imoni_chains, only: [:index, :show, :new, :create] do
     collection do

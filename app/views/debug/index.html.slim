@@ -1,0 +1,157 @@
+doctype html
+html
+  head
+    title 本番環境デバッグ情報
+    style
+      | body { font-family: monospace; line-height: 1.6; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1, h2, h3 { color: #333; border-bottom: 2px solid #007bff; padding-bottom: 5px; }
+        .info-section { margin: 20px 0; padding: 15px; background: #f8f9fa; border-left: 4px solid #007bff; }
+        .error { background: #ffe6e6; border-left-color: #dc3545; }
+        .warning { background: #fff3cd; border-left-color: #ffc107; }
+        .success { background: #e6ffe6; border-left-color: #28a745; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+        th, td { padding: 8px; border: 1px solid #ddd; text-align: left; }
+        th { background: #007bff; color: white; }
+        .code { background: #f4f4f4; padding: 10px; border-radius: 4px; overflow-x: auto; }
+        .timestamp { color: #666; font-size: 0.9em; }
+
+  body
+    .container
+      h1 🔍 本番環境デバッグ情報
+      p.timestamp 生成日時: #{@debug_info[:timestamp]}
+
+      // 環境情報
+      .info-section
+        h2 📊 環境情報
+        table
+          tr
+            th 項目
+            th 値
+          tr
+            td 環境
+            td
+              strong= @debug_info[:environment]
+          tr
+            td Ruby バージョン
+            td= @debug_info[:ruby_version]
+          tr
+            td Rails バージョン
+            td= @debug_info[:rails_version]
+          tr
+            td コードバージョン
+            td= @debug_info[:code_version]
+
+      // データベース情報
+      .info-section
+        h2 🗄️ データベース情報
+        table
+          tr
+            th 項目
+            th 値
+          tr
+            td アダプター
+            td= @database_info[:adapter]
+          tr
+            td 総Region数
+            td= @database_info[:total_regions]
+          tr
+            td 総Vote数
+            td= @database_info[:total_votes]
+
+      // 全Regionレコード
+      .info-section
+        h2 📝 全Regionレコード
+        table
+          tr
+            th ID
+            th 県名
+            th 味付け
+            th 肉
+            th 特徴
+          - @all_regions.each do |region|
+            tr
+              td= region[:id]
+              td= region[:name]
+              td= region[:seasoning]
+              td= region[:meat]
+              td= region[:feature]
+
+      // 重複チェック
+      .info-section class=(@duplicate_check.any? { |item| item[:count] > 1 } ? "warning" : "success")
+        h2 ⚠️ 重複チェック
+        table
+          tr
+            th 県名
+            th 件数
+            th ステータス
+          - @duplicate_check.each do |item|
+            tr
+              td= item[:name]
+              td= item[:count]
+              td= item[:status]
+
+      // Step2ロジックシミュレーション
+      .info-section
+        h2 🔄 Step2ロジックシミュレーション
+        - @step2_simulation.each do |seasoning, data|
+          h3 #{seasoning}選択時
+          p
+            strong ロジックタイプ:
+            = " #{data[:logic_type]}"
+          p
+            strong DB取得結果:
+            = " #{data[:raw_meats].inspect}"
+          .code
+            strong 処理詳細:
+            br
+            - data[:processing_details].each do |detail|
+              = detail
+              br
+          p
+            strong 最終結果:
+            span style="background: #e6ffe6; padding: 2px 5px;"= data[:final_meats].inspect
+
+      // Respectページシミュレーション
+      .info-section
+        h2 📋 Respectページシミュレーション
+        .code
+          strong 処理詳細:
+          br
+          - @respect_simulation[:processing_details].each do |detail|
+            = detail
+            br
+        h3 最終表示データ
+        table
+          tr
+            th 県名
+            th 味付け
+            th 肉
+            th 特徴
+          - @respect_simulation[:final_regions].each do |region|
+            tr
+              td= region[:name]
+              td= region[:seasoning]
+              td= region[:meat]
+              td= region[:feature]
+
+      // SQLテスト
+      .info-section class=(@sql_test[:status].include?("重複") ? "warning" : (@sql_test[:status].include?("エラー") ? "error" : "success"))
+        h2 🔍 SQLクエリテスト
+        p
+          strong ステータス:
+          = " #{@sql_test[:status]}"
+        - if @sql_test[:duplicates] && @sql_test[:duplicates].any?
+          strong 検出された重複:
+          ul
+            - @sql_test[:duplicates].each do |duplicate|
+              li= duplicate
+        - if @sql_test[:error]
+          p
+            strong エラー:
+            = " #{@sql_test[:error]}"
+
+      // ナビゲーション
+      div style="margin-top: 30px; text-align: center;"
+        a href="/" style="background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;" ホームに戻る
+        a href="/questions/respect" style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; margin-left: 10px;" 芋煮リスペクトページ
