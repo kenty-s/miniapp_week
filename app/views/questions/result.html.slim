@@ -4,9 +4,12 @@ h1.text-center 結果発表
   - if @region
     h2.text-success あなたが選んだのは...
     .region-result
-      h3.display-4
+      h3.large-title
         strong.text-primary= @region.name
-        | 風芋煮！
+        | 風芋煮
+        - if @region.name == "岩手" || @region.name == "秋田"
+          | (いものこ汁)
+        | ！
 
     .result-table.mt-2
       table.table.table-bordered.mx-auto style="max-width: 500px; font-size: 1.2rem;"
@@ -21,12 +24,12 @@ h1.text-center 結果発表
           td.py-2.px-3 style="text-align: left; font-size: 1.3rem;"= @region.feature
 
     // 地域差・家庭差の注釈
-    div.mt-2
+    div.mt-2.mb-1
       p.text-lg.text-gray-600.mb-0.text-left.font-semibold
         | 注意:同一県内においても地域差や家庭差がございます。
 
 // 芋煮リスペクトページへのリンク
-.respect-section.mt-4.mb-4
+.respect-section.mt-2.mb-4
   div.bg-white.rounded-xl.p-6.border-2.border-gray-300.text-center
     // メッセージ
     div.bg-gray-100.rounded-lg.p-4.mb-4
@@ -46,7 +49,8 @@ h1.text-center 結果発表
   = link_to root_path, class: "inline-flex items-center px-6 py-3 text-lg font-medium text-white bg-red-500 hover:bg-red-600 rounded-lg shadow-md hover:shadow-lg transition-all duration-300" do
     i.fas.fa-redo.mr-2
     | もう一度診断
-  - tweet_text = "私は#{@region.name}風芋煮派だべ！#{@region.feature}が最高だっぺ〜 芋煮がも゛ったいだい〜 #芋煮ケーション #芋煮論争 #東北愛"
+  - app_url = "https://miniapp-week.onrender.com/"
+  - tweet_text = "#{@region.name}風芋煮推し！#芋煮論争 #芋煮ケーション #全芋煮にリスペクト #{app_url}"
   - tweet_url = "https://twitter.com/intent/tweet?text=#{CGI.escape(tweet_text)}"
   = link_to tweet_url, target: "_blank", class: "inline-flex items-center px-6 py-3 text-lg font-medium text-white bg-black hover:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-300" do
     span.mr-2 𝕏

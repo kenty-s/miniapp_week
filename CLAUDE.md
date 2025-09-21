@@ -63,14 +63,12 @@ rails test:system            # System tests only
 ## Architecture Overview
 
 ### Domain Models
-- **Post**: Basic content model (currently minimal)
 - **Region**: Represents Tohoku prefectures (山形, 宮城, 福島, etc.)
 - **Vote**: Records user votes tied to specific regions
 
 ### Controllers
-- **PostsController**: Root controller (`posts#index`)
 - **VotesController**: Handles voting logic and ranking display with geographic positioning
-- **HomeController, QuestionsController**: Additional app flow controllers
+- **HomeController, QuestionsController**: Main app flow controllers
 
 ### Frontend Architecture
 - **Stimulus Controllers**:
@@ -85,7 +83,7 @@ rails test:system            # System tests only
 - Responsive design with Tailwind CSS
 
 ## Database Schema Notes
-The current schema shows only a basic `posts` table. The README mentions Vote and Region models, but migrations may be missing or pending. Check for unmigrated files in `db/migrate/` if these models aren't working.
+The application uses Region and Vote models for the core functionality. The Vote model records user votes tied to specific regions, while Region stores prefecture-specific imoni styles.
 
 ## Development Workflow
 1. Use `bin/dev` to start the full development stack

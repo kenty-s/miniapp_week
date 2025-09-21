@@ -22,8 +22,6 @@ Rails.application.routes.draw do
   # 投票機能
   resources :votes, only: [:create]
 
-  # 旧postリソース（必要に応じて削除可能）
-  resources :posts
 
   # システムルート
   get "up" => "rails/health#show", as: :rails_health_check

@@ -5,10 +5,18 @@ class QuestionsController < ApplicationController
     session[:seasoning] = params[:seasoning]
 
     # 選択した味付けに基づいて利用可能な肉をフィルタリング
-    raw_meats = Region.where(seasoning: session[:seasoning])
-                      .distinct
-                      .pluck(:meat)
-                      .uniq
+    # 福島は醤油・味噌どちらでもOKなので、特別処理
+    if session[:seasoning] == "醤油" || session[:seasoning] == "味噌"
+      raw_meats = Region.where("seasoning = ? OR seasoning LIKE ?", session[:seasoning], "%#{session[:seasoning]}%")
+                        .distinct
+                        .pluck(:meat)
+                        .uniq
+    else
+      raw_meats = Region.where(seasoning: session[:seasoning])
+                        .distinct
+                        .pluck(:meat)
+                        .uniq
+    end
 
     # 鶏・豚の組み合わせを個別の選択肢に分解
     @available_meats = []
@@ -38,10 +46,18 @@ class QuestionsController < ApplicationController
       meat_params += [session[:meat], "%#{session[:meat]}%"]
     end
 
-    @available_regions = Region.where(
-      "seasoning = ? AND #{meat_conditions.join(' OR ')}",
-      session[:seasoning], *meat_params
-    )
+    # 福島は醤油・味噌どちらでもOKなので、特別処理
+    if session[:seasoning] == "醤油" || session[:seasoning] == "味噌"
+      @available_regions = Region.where(
+        "(seasoning = ? OR seasoning LIKE ?) AND #{meat_conditions.join(' OR ')}",
+        session[:seasoning], "%#{session[:seasoning]}%", *meat_params
+      )
+    else
+      @available_regions = Region.where(
+        "seasoning = ? AND #{meat_conditions.join(' OR ')}",
+        session[:seasoning], *meat_params
+      )
+    end
     @available_features = @available_regions.pluck(:feature).uniq
   end
 
@@ -55,23 +71,32 @@ class QuestionsController < ApplicationController
       "(meat = '#{session[:meat]}' OR meat LIKE '%#{session[:meat]}%')"
     end
 
+    # 福島は醤油・味噌どちらでもOKなので、特別処理
+    if session[:seasoning] == "醤油" || session[:seasoning] == "味噌"
+      seasoning_condition = "(seasoning = ? OR seasoning LIKE ?)"
+      seasoning_params = [session[:seasoning], "%#{session[:seasoning]}%"]
+    else
+      seasoning_condition = "seasoning = ?"
+      seasoning_params = [session[:seasoning]]
+    end
+
     # より柔軟な検索でマッチする地域を見つける
     @region = Region.where(
-      "seasoning = ? AND #{meat_condition} AND feature = ?",
-      session[:seasoning], session[:feature]
+      "#{seasoning_condition} AND #{meat_condition} AND feature = ?",
+      *seasoning_params, session[:feature]
     ).first
 
     # 特徴が一致しない場合は、味付けと肉だけで検索
     unless @region
       @region = Region.where(
-        "seasoning = ? AND #{meat_condition}",
-        session[:seasoning]
+        "#{seasoning_condition} AND #{meat_condition}",
+        *seasoning_params
       ).first
     end
 
     # それでも見つからない場合は、味付けだけで検索
     unless @region
-      @region = Region.where(seasoning: session[:seasoning]).first
+      @region = Region.where(seasoning_condition, *seasoning_params).first
     end
 
     if @region
