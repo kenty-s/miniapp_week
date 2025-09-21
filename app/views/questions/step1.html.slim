@@ -1,12 +1,27 @@
+// プログレスバー（Tailwindで追加）
+div class="flex items-center justify-center mb-8 px-4"
+  div class="flex items-center space-x-4"
+    div class="flex items-center justify-center w-10 h-10 bg-orange-500 text-white rounded-full font-bold" 1
+    div class="w-16 h-1 bg-gray-300 rounded"
+    div class="flex items-center justify-center w-10 h-10 bg-gray-300 text-gray-500 rounded-full font-bold" 2
+    div class="w-16 h-1 bg-gray-300 rounded"
+    div class="flex items-center justify-center w-10 h-10 bg-gray-300 text-gray-500 rounded-full font-bold" 3
+p class="text-center text-gray-600 text-sm mb-8" Step 1 of 3
+
 h1 芋煮診断
 
 h2 Step1: 味付けはどれにする？
-= form_with url: questions_step2_path, method: :get, local: true, data: { controller: "form", form_target: "form" } do
-  .form-check data-action="click->form#selectOption" data-form-target="option"
+= form_with url: questions_step2_path, method: :get, local: true, data: { controller: "form", form_target: "form" }, id: "step1-form" do
+  label.form-check data-action="click->form#selectOption" data-form-target="option" class="hover:shadow-lg transition-shadow duration-300 cursor-pointer"
     = radio_button_tag :seasoning, "醤油", false, class: "form-check-input", data: { action: "change->form#radioSelected" }
-    = label_tag :seasoning_醤油, "醤油（あっさり系）", class: "form-check-label"
-  .form-check data-action="click->form#selectOption" data-form-target="option"
+    span class="form-check-label" 醤油（あっさり系）
+    p class="text-sm text-gray-600 mt-2 ml-8" すっきりとした上品な味わい。素材の旨味を活かした優しい味付け
+
+  label.form-check data-action="click->form#selectOption" data-form-target="option" class="hover:shadow-lg transition-shadow duration-300 cursor-pointer"
     = radio_button_tag :seasoning, "味噌", false, class: "form-check-input", data: { action: "change->form#radioSelected" }
-    = label_tag :seasoning_味噌, "味噌（濃厚系）", class: "form-check-label"
+    span class="form-check-label" 味噌（濃厚系）
+    p class="text-sm text-gray-600 mt-2 ml-8" コクのある深い味わい。しっかりとした味付けで満足感抜群
+
   br
-  = submit_tag "次へ", class: "btn btn-primary"
+  div class="flex justify-start items-center mt-6"
+    = submit_tag "次へ", class: "btn btn-primary transform hover:scale-105 transition-all duration-300", data: { action: "click->form#submitForm" }

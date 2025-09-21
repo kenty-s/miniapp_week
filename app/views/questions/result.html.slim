@@ -8,25 +8,46 @@ h1.text-center 結果発表
         strong.text-primary= @region.name
         | 風芋煮！
 
-    .result-table.mt-4
-      table.table.table-bordered.mx-auto style="max-width: 400px;"
+    .result-table.mt-2
+      table.table.table-bordered.mx-auto style="max-width: 500px; font-size: 1.2rem;"
         tr
-          td.fw-bold style="text-align: left;" 味付け
-          td style="text-align: left;"= @region.seasoning
+          td.fw-bold.py-2.px-3 style="text-align: left; font-size: 1.3rem;" 味付け
+          td.py-2.px-3 style="text-align: left; font-size: 1.3rem;"= @region.seasoning
         tr
-          td.fw-bold style="text-align: left;" 肉
-          td style="text-align: left;"= @region.meat
+          td.fw-bold.py-2.px-3 style="text-align: left; font-size: 1.3rem;" 肉
+          td.py-2.px-3 style="text-align: left; font-size: 1.3rem;"= @region.meat
         tr
-          td.fw-bold style="text-align: left;" 特徴
-          td style="text-align: left;"= @region.feature
+          td.fw-bold.py-2.px-3 style="text-align: left; font-size: 1.3rem;" 特徴
+          td.py-2.px-3 style="text-align: left; font-size: 1.3rem;"= @region.feature
 
+    // 地域差・家庭差の注釈
+    div.mt-2
+      p.text-lg.text-gray-600.mb-0.text-left.font-semibold
+        | 注意:同一県内においても地域差や家庭差がございます。
 
-.social-share.mt-5
+// 芋煮リスペクトページへのリンク
+.respect-section.mt-4.mb-4
+  div.bg-white.rounded-xl.p-6.border-2.border-gray-300.text-center
+    // メッセージ
+    div.bg-gray-100.rounded-lg.p-4.mb-4
+      h3.text-2xl.font-bold.mb-2.text-gray-800
+        | １つの芋煮しか食べないなんて、
+        br
+        span style="font-family: 'Rampart One', cursive; font-size: 2.5rem; color: #ec4899; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);"
+          | 芋煮がもったいだい‼
+
+    p.text-lg.font-semibold.text-gray-700.mb-4
+      | 各地の芋煮の魅力を知って、みんなで芋煮の多様性を楽しもう！
+
+    = link_to questions_respect_path, class: "inline-flex items-center px-8 py-4 bg-pink-500 text-white font-bold text-xl rounded-lg hover:bg-pink-600 transform hover:scale-105 transition-all duration-300 shadow-lg" do
+      | 芋煮リスペクトのための芋煮ページ
+
+.navigation.mt-4 class="flex justify-center space-x-4"
+  = link_to root_path, class: "inline-flex items-center px-6 py-3 text-lg font-medium text-white bg-red-500 hover:bg-red-600 rounded-lg shadow-md hover:shadow-lg transition-all duration-300" do
+    i.fas.fa-redo.mr-2
+    | もう一度診断
   - tweet_text = "私は#{@region.name}風芋煮派だべ！#{@region.feature}が最高だっぺ〜 芋煮がも゛ったいだい〜 #芋煮ケーション #芋煮論争 #東北愛"
   - tweet_url = "https://twitter.com/intent/tweet?text=#{CGI.escape(tweet_text)}"
-  = link_to tweet_url, target: "_blank", class: "btn btn-lg", style: "background-color: black; color: white; border: none;" do
-    | Xで芋煮ケーションする
-
-.navigation.mt-4
-  = link_to "戻る", questions_step3_path, class: "btn btn-outline-secondary me-3"
-  = link_to "もう一度やる", root_path, class: "btn btn-outline-secondary"
+  = link_to tweet_url, target: "_blank", class: "inline-flex items-center px-6 py-3 text-lg font-medium text-white bg-black hover:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-300" do
+    span.mr-2 𝕏
+    | で芋煮ケーションする

@@ -27,11 +27,6 @@ export default class extends Controller {
     if (radioButton) {
       radioButton.checked = true
     }
-
-    // 少し待ってから自動で次のページに進む
-    setTimeout(() => {
-      this.formTarget.submit()
-    }, 300)
   }
 
   // ラジオボタンが直接クリックされた時の処理
@@ -46,10 +41,19 @@ export default class extends Controller {
     if (parentOption) {
       parentOption.classList.add('selected')
     }
+  }
 
-    // 少し待ってから自動で次のページに進む
-    setTimeout(() => {
-      this.formTarget.submit()
-    }, 300)
+  // フォーム送信時の検証
+  submitForm(event) {
+    const checkedRadio = this.formTarget.querySelector('input[type="radio"]:checked')
+
+    if (!checkedRadio) {
+      event.preventDefault()
+      alert('選択肢を選んでください。')
+      return false
+    }
+
+    // 選択がある場合は通常の送信を続行
+    return true
   }
 }

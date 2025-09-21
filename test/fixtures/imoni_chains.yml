@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  base_ingredients: MyText
+  new_ingredient: MyString
+  combo_rating: 1
+  creator_name: MyString
+  chaos_level: 1
+  special_message: MyText
+
+two:
+  base_ingredients: MyText
+  new_ingredient: MyString
+  combo_rating: 1
+  creator_name: MyString
+  chaos_level: 1
+  special_message: MyText

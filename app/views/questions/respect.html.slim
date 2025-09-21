@@ -1,0 +1,108 @@
+div.result-container class="bg-white bg-opacity-95 rounded-3xl shadow-2xl p-8 mx-auto w-full"
+  // ヘッダーセクション
+  div.text-center.mb-8
+    h1.text-5xl.font-black.text-gray-900.mb-4.shadow-lg style="text-shadow: 3px 3px 6px rgba(0,0,0,0.3);"
+      | 芋煮リスペクトのための芋煮ページ
+
+    p.text-xl.text-gray-600.mb-8 style="font-family: 'Kosugi Maru', sans-serif;"
+      | 芋煮の魅力と東北各地の多様性を知って、みんなで芋煮を楽しもう！
+
+  // 芋煮の重要性セクション
+  div.bg-orange-50.rounded-xl.p-6.mb-8.border-l-4.border-orange-500
+    h2.text-2xl.font-bold.text-gray-800.mb-4.text-center
+      span.mr-2 ■
+      | 芋煮の重要性
+
+    div.grid.md:grid-cols-2.gap-6
+      div.bg-white.bg-opacity-80.rounded-lg.p-4
+        h3.text-lg.font-bold.text-orange-600.mb-2
+          | 防災・地域の絆
+        p.text-gray-700
+          | 芋煮会は災害時の炊き出し経験を活かした地域防災の知恵。みんなで協力して大鍋で料理することで、地域コミュニティの結束が深まります。
+
+      div.bg-white.bg-opacity-80.rounded-lg.p-4
+        h3.text-lg.font-bold.text-orange-600.mb-2
+          | 関係性構築
+        p.text-gray-700
+          | 職場、学校、友人同士での芋煮会は最高のチームビルディング。料理を通じて自然と会話が生まれ、新しいつながりが育まれます。
+
+  // 芋煮ケーションと防災
+  div.bg-blue-50.rounded-xl.p-6.mb-8.border-l-4.border-blue-500
+    h2.text-2xl.font-bold.text-gray-800.mb-4.text-center
+      span.mr-2 ■
+      | 芋煮ケーションと防災
+
+    div.bg-white.bg-opacity-80.rounded-lg.p-4.mb-4
+      p.text-gray-700.leading-relaxed
+        | 芋煮ケーションは「災害時に被災者が主となり、栄養バランスの良い食事をつくり、災害関連死につながる栄養不足や孤立を防ぐ。人と人のつながりが希薄な地域でも芋煮会を通じて、有事に集まりやすいコミュニティーづくりを作りましょう！」
+
+    div.bg-orange-100.rounded-lg.p-4.text-center
+      p.text-lg.font-bold.text-orange-800
+        | ９月は防災月間です。みんなで芋煮を食べて防災意識を高めましょう！
+
+  // 芋煮がもったいだいメッセージ
+  div.bg-white.rounded-xl.p-4.mb-8.border-2.border-gray-300.text-center
+    p.text-2xl.font-bold.text-gray-800
+      | １つの芋煮しか食べないなんて、
+      br
+      span style="font-family: 'Rampart One', cursive; font-size: 2.5rem; color: #ec4899; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);"
+        | 芋煮がもったいだい‼
+
+  // エリア別芋煮表
+  div.mb-8
+    h2.text-2xl.font-bold.text-gray-800.mb-6.text-center
+      | 東北エリア別芋煮マップ
+
+    div.overflow-x-auto
+      table.table.w-full.bg-white.rounded-lg.shadow-lg
+        thead
+          tr.bg-orange-500.text-white
+            th.py-3.px-4 県名
+            th.py-3.px-4 味付け
+            th.py-3.px-4 メイン食材
+            th.py-3.px-4 特徴
+
+        tbody
+          - @regions.each do |region_name, regions|
+            - regions.each_with_index do |region, index|
+              tr class="#{index.even? ? 'bg-gray-50' : 'bg-white'} hover:bg-orange-50 transition-colors"
+                - if index == 0 && regions.size > 1
+                  td.py-3.px-4.font-bold.text-orange-600 rowspan="#{regions.size}"
+                    = region_name
+                - elsif regions.size == 1
+                  td.py-3.px-4.font-bold.text-orange-600
+                    = region_name
+                td.py-3.px-4.text-center
+                  span.px-2.py-1.rounded.text-sm class="#{region.seasoning == '醤油' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800'}"
+                    = region.seasoning
+                td.py-3.px-4.text-center
+                  span.px-2.py-1.bg-blue-100.text-blue-800.rounded.text-sm
+                    = region.meat
+                td.py-3.px-4.text-center.text-gray-700
+                  = region.feature
+
+  // 注釈
+  div.bg-gray-100.rounded-lg.p-4.mb-8.text-center
+    p.text-sm.text-gray-600
+      span.font-semibold 注意:
+      | 地域差や家庭差がございます。これらは一般的な傾向を示したものです。
+
+  // Cookpad検索セクション
+  div.bg-green-50.rounded-xl.p-6.mb-8.text-center
+    h2.text-2xl.font-bold.text-gray-800.mb-4
+      span.mr-2 ■
+      | レシピを探してみよう！
+
+    p.text-gray-600.mb-4
+      | クックパッドで「芋煮」のレシピを検索して、あなただけの芋煮を作ってみませんか？
+
+    = link_to "https://cookpad.com/search/%E8%8A%8B%E7%85%AE", target: "_blank", rel: "noopener noreferrer", class: "inline-flex items-center px-6 py-3 bg-orange-500 text-white font-bold rounded-lg hover:bg-orange-600 transform hover:scale-105 transition-all duration-300 shadow-lg" do
+      | Cookpadで芋煮レシピを検索
+
+  // ナビゲーションボタン
+  div.flex.justify-center.space-x-4.mt-8
+    = link_to root_path, class: "inline-flex items-center px-6 py-3 bg-orange-500 text-white font-bold rounded-lg hover:bg-orange-600 transform hover:scale-105 transition-all duration-300 shadow-lg" do
+      | ホームに戻る
+
+    = link_to questions_step1_path, class: "inline-flex items-center px-6 py-3 bg-orange-500 text-white font-bold rounded-lg hover:bg-orange-600 transform hover:scale-105 transition-all duration-300 shadow-lg" do
+      | もう一度診断する

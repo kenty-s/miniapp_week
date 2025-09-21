@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "芋煮ケーション 🍲" %></title>
+    <title><%= content_for(:title) || "この芋煮論争を終わらせに来た!!!" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -22,12 +22,30 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Rampart+One&display=swap" rel="stylesheet">
 
+    <%# Font Awesome アイコン %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
   <body>
+    <!-- コンパクトヘッダー -->
+    <header class="sticky top-0 z-50 bg-white bg-opacity-10 backdrop-blur-sm border-b border-orange-200" style="height: 40px;">
+      <div class="w-full px-4 h-full">
+        <nav class="flex items-center justify-between h-full">
+          <%= link_to root_path, class: "flex items-center transition-colors duration-300" do %>
+            <span class="font-bold text-xs" style="font-family: 'Rampart One', cursive; color: #dc2626; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">この芋煮論争を終わらせに来た!!!</span>
+          <% end %>
+
+          <%= link_to root_path, class: "text-gray-700 hover:text-orange-500 transition-colors duration-300" do %>
+            <i class="fas fa-home text-sm"></i>
+          <% end %>
+        </nav>
+      </div>
+    </header>
+
     <div class="container">
       <%= yield %>
     </div>

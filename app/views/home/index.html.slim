@@ -1,2 +1,27 @@
-div.opening-container
-  = link_to "この芋煮論争を終わらせに来た!!!", questions_step1_path, class: "btn btn-danger btn-lg", id: "start-btn"
+div.opening-container class="bg-white bg-opacity-95 rounded-3xl shadow-2xl p-8 mx-auto w-full"
+  // ヒーローセクション
+  div.hero-section class="text-center mb-8"
+    div.hero-character
+      h1.character-name style="font-family: 'Rampart One', cursive; font-size: 3.5rem; margin-bottom: 1rem; color: #dc2626; line-height: 1.2; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);"
+        | この芋煮論争を
+        br
+        | 終わらせに来た!!!
+
+
+    p.hero-message class="text-2xl mb-8" style="font-family: 'Kosugi Maru', sans-serif;"
+      | 論争ではなく、みんなで芋煮の多様性を楽しもう
+
+  // メインCTAボタン（既存スタイルを活用 + Tailwindで強化）
+  div class="text-center mb-12"
+    div class="bg-gradient-to-r from-orange-500 to-red-500 rounded-xl p-1 shadow-xl"
+      = link_to "好みの芋煮を知る", questions_step1_path, class: "block w-full px-8 py-4 text-xl font-bold text-white bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 rounded-lg transform hover:scale-105 transition-all duration-300", style: "font-family: 'Rampart One', cursive;", id: "start-btn"
+
+  // 特徴カード（Tailwindで追加）
+  div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto"
+    div class="bg-white bg-opacity-90 rounded-xl p-8 shadow-lg border border-orange-100 hover:shadow-xl transition-shadow duration-300"
+      h3 class="text-xl font-bold text-gray-800 mb-3 text-center" 🗾 県別診断
+      p class="text-gray-600 text-center" あなたの好みから最適な県の芋煮スタイルを診断します
+
+    div class="bg-white bg-opacity-90 rounded-xl p-8 shadow-lg border border-orange-100 hover:shadow-xl transition-shadow duration-300"
+      h3 class="text-xl font-bold text-gray-800 mb-3 text-center" 👣 簡単3ステップ
+      p class="text-gray-600 text-center" わずか3つの質問で完了する簡単診断

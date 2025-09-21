@@ -1,0 +1,119 @@
+<div class="min-h-screen py-8 px-4">
+  <div class="max-w-4xl mx-auto">
+    <!-- 分かりやすいヘッダー -->
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold text-red-600 mb-4" style="font-family: 'Rampart One', cursive;">
+        🎲 芋煮チェーンガチャ
+      </h1>
+      <div class="bg-blue-100 rounded-xl p-4 mb-6">
+        <h2 class="text-lg font-bold text-blue-800 mb-2">🤔 これは何？</h2>
+        <p class="text-blue-700" style="font-family: 'Kosugi Maru', sans-serif;">
+          前の人が作った芋煮に、あなたが1つ具材を追加するゲームです！<br>
+          みんなでつないで、とんでもない芋煮を作ろう！
+        </p>
+      </div>
+    </div>
+
+    <!-- 現在のチェーン状況 -->
+    <% if @previous_chain %>
+      <div class="bg-gradient-to-r from-orange-100 to-yellow-100 rounded-2xl shadow-lg p-6 mb-8 border-2 border-orange-300">
+        <h2 class="text-2xl font-bold text-orange-800 mb-4 text-center">
+          🍲 現在の芋煮（<%= @previous_chain.chain_number %>番目）
+        </h2>
+        
+        <div class="bg-white rounded-xl p-4 mb-4">
+          <h3 class="text-lg font-bold text-gray-800 mb-2">📝 今入ってる具材</h3>
+          <div class="text-xl text-gray-800 font-semibold">
+            <%= @previous_chain.ingredients_text %>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-4">
+          <h3 class="text-lg font-bold text-gray-800 mb-2">⭐ みんなの評価</h3>
+          <div class="flex items-center space-x-4">
+            <div>
+              <span class="text-sm text-gray-600">カオス度:</span>
+              <span class="text-2xl"><%= "🔥" * [@previous_chain.chaos_level, 5].min %></span>
+            </div>
+            <div class="flex-1">
+              <p class="text-gray-700 italic">"<%= @previous_chain.special_message %>"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="bg-gradient-to-r from-green-100 to-blue-100 rounded-2xl shadow-lg p-6 mb-8 border-2 border-green-300">
+        <div class="text-center">
+          <h2 class="text-2xl font-bold text-green-800 mb-4">
+            🎉 あなたが最初の挑戦者！
+          </h2>
+          <p class="text-lg text-green-700">
+            基本の芋煮（🥔里芋 × 🥩牛肉 × 🥄醤油）からスタートします
+          </p>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- 簡単フォーム -->
+    <div class="bg-white rounded-2xl shadow-2xl p-8 border-2 border-orange-200">
+      <%= form_with url: spin_imoni_chains_path, method: :post, local: true, class: "space-y-6" do |f| %>
+        <!-- ステップ1: 名前 -->
+        <div class="bg-gray-50 rounded-xl p-6">
+          <h3 class="text-xl font-bold text-gray-800 mb-4">
+            👤 ステップ1: あなたの名前
+          </h3>
+          <%= text_field_tag :creator_name, "", placeholder: "芋煮マスター太郎", class: "w-full px-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:border-orange-500 focus:outline-none", style: "font-family: 'Kosugi Maru', sans-serif;" %>
+        </div>
+
+        <!-- ステップ2: 具材選択 -->
+        <div class="bg-gray-50 rounded-xl p-6">
+          <h3 class="text-xl font-bold text-gray-800 mb-4">
+            🥕 ステップ2: 追加する具材を選ぶ
+          </h3>
+          <p class="text-gray-600 mb-4">
+            「おまかせ」にすると、ランダムで面白い具材が選ばれます！
+          </p>
+          
+          <%= select_tag :custom_ingredient,
+              options_for_select([
+                ["🎲 おまかせ（ランダム）", ""],
+                ["--- 普通の具材 ---", ""],
+                ["🥔 じゃがいも", "じゃがいも"],
+                ["🥕 人参", "人参"],
+                ["🧅 玉ねぎ", "玉ねぎ"],
+                ["🍄 しめじ", "しめじ"],
+                ["🐄 豚肉", "豚肉"],
+                ["🐔 鶏肉", "鶏肉"],
+                ["--- ちょっと変わった具材 ---", ""],
+                ["🧈 バター", "バター"],
+                ["🧀 チーズ", "チーズ"],
+                ["🍝 うどん", "うどん"],
+                ["🌶️ キムチ", "キムチ"],
+                ["--- 絶対ヤバい具材 ---", ""],
+                ["🍫 チョコレート", "チョコレート"],
+                ["☕ コーヒー", "コーヒー"],
+                ["🍺 ビール", "ビール"]
+              ]),
+              {},
+              {class: "w-full px-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:border-orange-500 focus:outline-none"} %>
+        </div>
+
+        <!-- でっかいガチャボタン -->
+        <div class="text-center py-6">
+          <%= submit_tag "🎲 芋煮ガチャを回す！", 
+              class: "w-full md:w-auto px-16 py-6 text-3xl font-bold text-white bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 animate-pulse", 
+              style: "font-family: 'Rampart One', cursive;",
+              onclick: "this.style.animation='none'; this.innerHTML='🍲 芋煮を作成中...'; this.disabled=true;" %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- 戻るリンク -->
+    <div class="text-center mt-8">
+      <%= link_to root_path, class: "inline-flex items-center px-6 py-3 text-lg font-medium text-gray-600 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all duration-300" do %>
+        <i class="fas fa-home mr-2"></i>
+ホームに戻る
+      <% end %>
+    </div>
+  </div>
+</div>

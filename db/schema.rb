@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_16_140433) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_18_205243) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "imoni_chains", force: :cascade do |t|
+    t.text "base_ingredients"
+    t.string "new_ingredient"
+    t.integer "combo_rating"
+    t.string "creator_name"
+    t.integer "chaos_level"
+    t.text "special_message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "posts", force: :cascade do |t|
     t.string "title"

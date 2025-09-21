@@ -1,10 +1,24 @@
+// プログレスバー
+div class="flex items-center justify-center mb-8 px-4"
+  div class="flex items-center space-x-4"
+    div class="flex items-center justify-center w-10 h-10 bg-orange-500 text-white rounded-full font-bold" ✓
+    div class="w-16 h-1 bg-orange-500 rounded"
+    div class="flex items-center justify-center w-10 h-10 bg-orange-500 text-white rounded-full font-bold" 2
+    div class="w-16 h-1 bg-gray-300 rounded"
+    div class="flex items-center justify-center w-10 h-10 bg-gray-300 text-gray-500 rounded-full font-bold" 3
+p class="text-center text-gray-600 text-sm mb-8" Step 2 of 3
+
 h1 Step2: 肉はどれにする？
 
-p あなたが選んだ味付け: #{session[:seasoning]}
+// 前の選択の表示
+div class="bg-gradient-to-r from-orange-100 to-orange-50 rounded-xl p-4 mb-6 border-l-4 border-orange-500"
+  p class="text-gray-700 text-center"
+    span class="font-semibold" あなたが選んだ味付け:
+    span class="text-orange-600 font-bold" #{session[:seasoning]}
 
-= form_with url: questions_step3_path, method: :get, local: true, data: { controller: "form", form_target: "form" } do
+= form_with url: questions_step3_path, method: :get, local: true, data: { controller: "form", form_target: "form" }, id: "step2-form" do
   - @available_meats.each do |meat|
-    .form-check data-action="click->form#selectOption" data-form-target="option"
+    label.form-check data-action="click->form#selectOption" data-form-target="option" class="hover:shadow-lg transition-shadow duration-300 cursor-pointer"
       = radio_button_tag :meat, meat, false, class: "form-check-input", data: { action: "change->form#radioSelected" }
       - label_text = case meat
       - when "牛"
@@ -15,8 +29,9 @@ p あなたが選んだ味付け: #{session[:seasoning]}
         - "鶏肉"
       - else
         - meat
-      = label_tag "meat_#{meat.gsub('・', '_')}", label_text, class: "form-check-label"
+      span class="form-check-label" = label_text
   br
-  .button-group
-    = link_to "戻る", questions_step1_path, class: "btn btn-outline-secondary me-3"
-    = submit_tag "次へ", class: "btn btn-primary"
+  .button-group class="flex justify-between items-center"
+    div class="flex space-x-3"
+      = submit_tag "次へ", class: "btn btn-primary transform hover:scale-105 transition-all duration-300", data: { action: "click->form#submitForm" }
+      = link_to "戻る", questions_step1_path, class: "btn btn-outline-secondary transform hover:scale-105 transition-all duration-300"

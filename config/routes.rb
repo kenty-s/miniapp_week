@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  # 芋煮チェーン機能
+  resources :imoni_chains, only: [:index, :show, :new, :create] do
+    collection do
+      get :gacha  # ガチャページ
+      post :spin  # ガチャ実行
+    end
+  end
   # 芋煮ケーションアプリのルート
   root 'home#index'
 
@@ -10,6 +17,7 @@ Rails.application.routes.draw do
   get 'questions/step2', to: 'questions#step2'
   get 'questions/step3', to: 'questions#step3'
   get 'questions/result', to: 'questions#result'
+  get 'questions/respect', to: 'questions#respect'
 
   # 投票機能
   resources :votes, only: [:create]

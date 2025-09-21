@@ -79,4 +79,9 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def respect
+    # 芋煮リスペクトページで使用するデータを準備
+    @regions = Region.all.group_by(&:name)
+  end
+
 end
