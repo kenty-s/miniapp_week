@@ -155,3 +155,57 @@ html
       div style="margin-top: 30px; text-align: center;"
         a href="/" style="background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;" ホームに戻る
         a href="/questions/respect" style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; margin-left: 10px;" 芋煮リスペクトページ
+
+      // Git情報とコード同期
+      .info-section
+        h2 🔄 Git情報とコード同期
+        table
+          tr
+            th 項目
+            th 値
+          tr
+            td 現在のコミット
+            td= @git_info[:current_commit]
+          tr
+            td QuestionsController
+            td= @git_info[:questions_controller_hash]
+          tr
+            td DebugController
+            td= @git_info[:debug_controller_hash]
+          tr
+            td seeds.rb
+            td= @git_info[:seeds_file_hash]
+
+
+      // 環境設定詳細
+      .info-section
+
+        h2 ⚙️ 環境設定詳細
+        table
+          tr
+            th 設定項目
+            th 値
+          tr
+            td RAILS_ENV
+            td= @environment_details[:rails_env]
+          tr
+            td DATABASE_URL
+            td= @environment_details[:database_url]
+          tr
+            td RAILS_MASTER_KEY
+            td= @environment_details[:rails_master_key_present] ? "設定済み" : "未設定"
+          tr
+            td キャッシュ有効
+            td= @environment_details[:caching_enabled]
+          tr
+            td Eager Load
+            td= @environment_details[:eager_load]
+          tr
+            td クラスキャッシュ
+            td= @environment_details[:cache_classes]
+          tr
+            td ログレベル
+            td= @environment_details[:log_level]
+          tr
+            td SSL強制
+            td= @environment_details[:ssl_configured]

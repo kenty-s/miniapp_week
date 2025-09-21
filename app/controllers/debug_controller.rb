@@ -8,7 +8,27 @@ class DebugController < ApplicationController
       ruby_version: RUBY_VERSION,
       rails_version: Rails.version,
       timestamp: Time.current,
-      code_version: "2024-09-21-v4-debug-page"
+      code_version: "2024-09-21-v5-env-check"
+    }
+
+    # Git情報とコード同期チェック
+    @git_info = {
+      current_commit: get_git_commit,
+      questions_controller_hash: file_content_hash('app/controllers/questions_controller.rb'),
+      debug_controller_hash: file_content_hash('app/controllers/debug_controller.rb'),
+      seeds_file_hash: file_content_hash('db/seeds.rb')
+    }
+
+    # 環境変数と設定の詳細チェック
+    @environment_details = {
+      rails_env: ENV['RAILS_ENV'],
+      database_url: ENV['DATABASE_URL']&.gsub(/password=[^&\s]+/, 'password=***'),
+      rails_master_key_present: ENV['RAILS_MASTER_KEY'].present?,
+      caching_enabled: Rails.application.config.action_controller.perform_caching,
+      eager_load: Rails.application.config.eager_load,
+      cache_classes: Rails.application.config.enable_reloading ? 'disabled' : 'enabled',
+      log_level: Rails.application.config.log_level,
+      ssl_configured: Rails.application.config.force_ssl
     }
 
     # データベース基本情報
@@ -152,5 +172,23 @@ class DebugController < ApplicationController
     end
 
     results
+  end
+
+  def get_git_commit
+    # Dockerコンテナでのgit安全性設定
+    `git config --global --add safe.directory /myapp 2>/dev/null; git rev-parse HEAD 2>/dev/null`.strip
+  rescue
+    'N/A (Git not available)'
+  end
+
+  def file_content_hash(file_path)
+    full_path = Rails.root.join(file_path)
+    if File.exist?(full_path)
+      Digest::SHA256.hexdigest(File.read(full_path))[0, 8]
+    else
+      'FILE_NOT_FOUND'
+    end
+  rescue
+    'ERROR'
   end
 end
