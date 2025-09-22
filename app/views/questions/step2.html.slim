@@ -31,7 +31,7 @@ div class="bg-gradient-to-r from-orange-100 to-orange-50 rounded-xl p-4 mb-6 bor
         - meat
       span class="form-check-label" = label_text
   br
-  .button-group class="flex justify-between items-center"
-    div class="flex space-x-3"
-      = submit_tag "次へ", class: "btn btn-primary transform hover:scale-105 transition-all duration-300", data: { action: "click->form#submitForm" }
-      = link_to "戻る", questions_step1_path, class: "btn btn-outline-secondary transform hover:scale-105 transition-all duration-300"
+  .button-group class="flex justify-center items-center mt-8"
+    div class="flex space-x-4"
+      = submit_tag "次へ", class: "btn btn-primary transform hover:scale-105 transition-all duration-300 text-lg font-bold px-8 py-3", data: { action: "click->form#submitForm" }
+      = link_to "戻る", questions_step1_path, class: "btn btn-outline-secondary transform hover:scale-105 transition-all duration-300 px-6 py-3"

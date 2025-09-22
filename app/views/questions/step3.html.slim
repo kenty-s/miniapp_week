@@ -28,7 +28,7 @@ h2 どんな特徴が好み？
       = radio_button_tag :feature, feature, false, class: "form-check-input", data: { action: "change->form#radioSelected" }
       span class="form-check-label" = feature
   br
-  .button-group class="flex justify-between items-center"
-    div class="flex space-x-3"
-      = submit_tag "結果を見る！", class: "btn btn-success transform hover:scale-105 transition-all duration-300", data: { action: "click->form#submitForm" }
-      = link_to "戻る", questions_step2_path, class: "btn btn-outline-secondary transform hover:scale-105 transition-all duration-300"
+  .button-group class="flex justify-center items-center mt-8"
+    div class="flex space-x-4"
+      = submit_tag "結果を見る！", class: "btn btn-success transform hover:scale-105 transition-all duration-300 text-lg font-bold px-8 py-3", data: { action: "click->form#submitForm" }
+      = link_to "戻る", questions_step2_path, class: "btn btn-outline-secondary transform hover:scale-105 transition-all duration-300 px-6 py-3"

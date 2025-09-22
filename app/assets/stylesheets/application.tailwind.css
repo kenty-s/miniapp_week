@@ -127,13 +127,42 @@ body {
 }
 
 .btn-primary {
-  background: #666;
+  background: linear-gradient(135deg, #28a745, #34ce57);
   color: white;
+  font-size: 1.1rem;
+  padding: 12px 24px;
+  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #218838, #28a745);
+  box-shadow: 0 6px 16px rgba(40, 167, 69, 0.4);
+}
+
+.btn-outline-secondary {
+  background: transparent;
+  color: #666;
+  border: 2px solid #ddd;
+  font-size: 1rem;
+}
+
+.btn-outline-secondary:hover {
+  background: #f8f8f8;
+  border-color: #999;
+  color: #444;
 }
 
 .btn-success {
-  background: #000;
+  background: linear-gradient(135deg, #28a745, #34ce57);
   color: white;
+  font-size: 1.1rem;
+  padding: 12px 24px;
+  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, #218838, #28a745);
+  box-shadow: 0 6px 16px rgba(40, 167, 69, 0.4);
 }
 
 .btn-info {
