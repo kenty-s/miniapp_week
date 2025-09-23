@@ -50,7 +50,7 @@ h1.text-center 結果発表
     i.fas.fa-redo.mr-2
     | もう一度診断
   - app_url = "https://miniapp-week.onrender.com/"
-  - tweet_text = "#{@region.name}風芋煮推し！#芋煮論争 #芋煮ケーション #全芋煮にリスペクト #{app_url}"
+  - tweet_text = "#{@region.name}風芋煮推し！#芋煮 #芋煮論争 #芋煮ケーション #全芋煮にリスペクト #{app_url}"
   - tweet_url = "https://twitter.com/intent/tweet?text=#{CGI.escape(tweet_text)}"
   = link_to tweet_url, target: "_blank", class: "inline-flex items-center px-6 py-3 text-lg font-medium text-white bg-black hover:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-300" do
     span.mr-2 𝕏
