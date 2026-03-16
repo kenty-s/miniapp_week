@@ -23,15 +23,16 @@ h1.text-center 結果発表
           td.fw-bold.py-2.px-3 style="text-align: left; font-size: 1.3rem;" 特徴
           td.py-2.px-3 style="text-align: left; font-size: 1.3rem;"= @region.feature
 
-    // 地域差・家庭差の注釈
     div.mt-2.mb-1
       p.text-lg.text-gray-600.mb-0.text-left.font-semibold
         | 注意:同一県内においても地域差や家庭差がございます。
 
-// 芋煮リスペクトページへのリンク
+  - else
+    h2.text-danger 条件に合う芋煮が見つかりませんでした
+    p.text-gray-600 診断を最初からやり直してください。
+
 .respect-section.mt-2.mb-4
   div.bg-white.rounded-xl.p-6.border-2.border-gray-300.text-center
-    // メッセージ
     div.bg-gray-100.rounded-lg.p-4.mb-4
       h3.text-2xl.font-bold.mb-2.text-gray-800
         | １つの芋煮しか食べないなんて、
@@ -49,9 +50,11 @@ h1.text-center 結果発表
   = link_to root_path, class: "inline-flex items-center px-6 py-3 text-lg font-medium text-white bg-red-500 hover:bg-red-600 rounded-lg shadow-md hover:shadow-lg transition-all duration-300" do
     i.fas.fa-redo.mr-2
     | もう一度診断
-  - app_url = "https://miniapp-week.onrender.com/"
-  - tweet_text = "#{@region.name}風芋煮推し！#芋煮 #芋煮論争 #芋煮ケーション #全芋煮にリスペクト #{app_url}"
-  - tweet_url = "https://twitter.com/intent/tweet?text=#{CGI.escape(tweet_text)}"
-  = link_to tweet_url, target: "_blank", class: "inline-flex items-center px-6 py-3 text-lg font-medium text-white bg-black hover:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-300" do
-    span.mr-2 𝕏
-    | で芋煮ケーションする
+
+  - if @region
+    - app_url = "https://miniapp-week.onrender.com/"
+    - tweet_text = "#{@region.name}風芋煮推し！#芋煮 #芋煮論争 #芋煮ケーション #全芋煮にリスペクト #{app_url}"
+    - tweet_url = "https://twitter.com/intent/tweet?text=#{CGI.escape(tweet_text)}"
+    = link_to tweet_url, target: "_blank", class: "inline-flex items-center px-6 py-3 text-lg font-medium text-white bg-black hover:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-300" do
+      span.mr-2 𝕏
+      | で芋煮ケーションする

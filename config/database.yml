@@ -20,4 +20,3 @@ production:
   database: graduation_development_production
   username: graduation_development
   password: <%= ENV["GRADUATION_DEVELOPMENT_DATABASE_PASSWORD"] %>
-EOF

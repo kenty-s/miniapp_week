@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres
+    image: postgres:17
     restart: always
     environment:
       TZ: Asia/Tokyo
@@ -28,7 +28,7 @@ services:
     environment:
       TZ: Asia/Tokyo
     ports:
-      - "3000:3000"
+      - "3001:3000"
     depends_on:
       db:
         condition: service_healthy

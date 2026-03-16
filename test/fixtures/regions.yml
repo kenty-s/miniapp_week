@@ -1,0 +1,17 @@
+aomori:
+  name: 青森
+  meat: 鶏・豚
+  seasoning: 味噌
+  feature: いももち入り、家庭差あり
+
+akita:
+  name: 秋田
+  meat: 鶏・豚
+  seasoning: 醤油
+  feature: 根菜・きのこ多め、家庭ごとに差あり
+
+fukushima:
+  name: 福島
+  meat: 豚
+  seasoning: 醤油・味噌
+  feature: 地域で味付けが分かれ、家庭的に親しまれる

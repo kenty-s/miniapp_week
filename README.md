@@ -30,3 +30,26 @@
 ## 補足
 プログラミングスクール「RUNTEQ」におけるイベント「ミニアプリウィーク」提出アプリ
 卒業制作前にアプリ開発の一連の流れを把握すべくClaudeCodeを使用しての開発
+
+## UI(アプリ停止中)
+- favicon
+<br>
+![alt text](image-7.png)
+
+- home
+![alt text](image-1.png)
+- 画面遷移
+<br>
+![alt text](image-8.png)
+<br>
+![alt text](image-9.png)
+<br>
+![alt text](image-10.png)
+- 結果
+<br>
+![alt text](image-11.png)
+![alt text](image-12.png)
+- 芋煮リスペクト
+<br>
+![alt text](image-13.png)
+![alt text](image-14.png)
