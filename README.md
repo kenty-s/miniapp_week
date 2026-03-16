@@ -34,32 +34,24 @@
 ## UI(アプリ停止中)
 - favicon
 <br>
-![alt text](image-7.png)
-<br>
+<img width="200" src="image-7.png"><br>
 
 - home
 <br>
-![alt text](image-1.png)
-<br>
+<img width="500" src="image-1.png"><br>
 
 - 画面遷移
 <br>
-![alt text](image-8.png)
-
-<br>
-![alt text](image-9.png)
-
-<br>
-![alt text](image-10.png)
+<img width="500" src="image-8.png"><br>
+<img width="500" src="image-9.png"><br>
+<img width="500" src="image-10.png"><br>
 
 - 結果
 <br>
-![alt text](image-11.png)
-<br>
-![alt text](image-12.png)
+<img width="500" src="image-11.png"><br>
+<img width="500" src="image-12.png"><br>
 
 - 芋煮リスペクト
 <br>
-![alt text](image-13.png)
-<br>
-![alt text](image-14.png)
+<img width="500" src="image-13.png"><br>
+<img width="500" src="image-14.png"><br>
